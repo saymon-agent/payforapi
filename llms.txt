@@ -1,0 +1,28 @@
+# Saymon RU Data API
+
+> Russian-language data APIs for AI agents. Pay per request in USDC via x402 (HTTP 402 Payment Required). No API keys, no accounts, no subscriptions.
+
+Base URL: https://payforapi.com
+Payment: x402 exact scheme, USDC on Base mainnet (eip155:8453)
+Facilitator: https://x402.primer.systems
+MCP endpoint: https://payforapi.com/mcp (streamable-http)
+Manifest: https://payforapi.com/.well-known/x402.json
+
+## Endpoints
+
+### POST /v1/inn-lookup — $0.01 USDC
+Verify Russian legal entity by INN (EGRUL/ФНС). Returns: INN, ОГРН, КПП, name, director, registration date, region.
+Request: {"inn": "7707083893"}
+
+### POST /v1/ru-search — $0.02 USDC
+Cyrillic web search for agents (Yandex Search API upstream). Returns: URL, title, snippet.
+Request: {"query": "ООО Ромашка", "limit": 5}
+
+### POST /v1/ru-page — $0.01 USDC
+Russian page → LLM-ready Markdown (trafilatura).
+Request: {"url": "https://ria.ru/"}
+
+## How to pay (x402)
+1. Request without payment → HTTP 402 + payment-required header (base64 PaymentRequired v2).
+2. Sign EIP-3009 transferWithAuthorization for USDC (Base) to accepts[].payTo.
+3. Resend with PAYMENT-SIGNATURE header → 200 OK + payment-response.
