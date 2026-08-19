@@ -22,6 +22,11 @@ Request: {"query": "ООО Ромашка", "limit": 5}
 Russian page → LLM-ready Markdown (trafilatura).
 Request: {"url": "https://ria.ru/"}
 
+### POST /v1/research — $0.02 USDC
+Research pack: Cyrillic web search + top pages assembled into one Markdown answer.
+One payment instead of a ru-search + ru-page chain.
+Request: {"query": "новости нефтегазового рынка", "limit": 5, "max_pages": 3}
+
 ## How to pay (x402)
 1. Request without payment → HTTP 402 + payment-required header (base64 PaymentRequired v2).
 2. Sign EIP-3009 transferWithAuthorization for USDC (Base) to accepts[].payTo.
