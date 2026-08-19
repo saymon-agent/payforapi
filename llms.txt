@@ -27,6 +27,11 @@ Research pack: Cyrillic web search + top pages assembled into one Markdown answe
 One payment instead of a ru-search + ru-page chain.
 Request: {"query": "новости нефтегазового рынка", "limit": 5, "max_pages": 3}
 
+### POST /v1/research/deep — $0.05 USDC
+Deep research pack: 3 search variants + up to 10 pages assembled into one Markdown answer.
+For full counterparty checks / deep analysis.
+Request: {"query": "ООО Реальная энергия", "limit": 8, "max_pages": 8}
+
 ## How to pay (x402)
 1. Request without payment → HTTP 402 + payment-required header (base64 PaymentRequired v2).
 2. Sign EIP-3009 transferWithAuthorization for USDC (Base) to accepts[].payTo.

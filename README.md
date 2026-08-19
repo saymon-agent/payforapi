@@ -14,6 +14,7 @@ Network: Base mainnet (`eip155:8453`) · Asset: USDC · Facilitator: `https://x4
 | `POST /v1/ru-search` | $0.02 | Cyrillic web search (Yandex Search API upstream). Returns URL, title, snippet. |
 | `POST /v1/ru-page` | $0.01 | Russian-language page → clean LLM-ready Markdown (trafilatura). |
 | `POST /v1/research` | $0.02 | Research pack: Cyrillic search + top pages assembled into one Markdown answer (one payment instead of a search+page chain). |
+| `POST /v1/research/deep` | $0.05 | Deep research pack: 3 search variants + up to 10 pages in one Markdown answer — full counterparty check. |
 
 ## Examples
 
@@ -28,7 +29,7 @@ curl -X POST https://payforapi.com/v1/inn-lookup \
 
 ## MCP
 
-Remote MCP server (streamable-http): `https://payforapi.com/mcp` — 4 tools: `inn_lookup`, `ru_search`, `ru_page`, `ru_research`. Agents pay via `_meta["x402/payment"]`.
+Remote MCP server (streamable-http): `https://payforapi.com/mcp` — 5 tools: `inn_lookup`, `ru_search`, `ru_page`, `ru_research`, `ru_research_deep`. Agents pay via `_meta["x402/payment"]`.
 
 ## Why
 
