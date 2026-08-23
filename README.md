@@ -6,7 +6,7 @@ Base URL: `https://payforapi.com` · MCP: `https://payforapi.com/mcp` · Health:
 
 Network: Base mainnet (`eip155:8453`) · Asset: USDC · Facilitator: `https://x402.primer.systems`
 
-## Endpoints
+## Endpoints (11)
 
 | Endpoint | Price | Description |
 |---|---|---|
@@ -15,6 +15,12 @@ Network: Base mainnet (`eip155:8453`) · Asset: USDC · Facilitator: `https://x4
 | `POST /v1/ru-page` | $0.01 | Russian-language page → clean LLM-ready Markdown (trafilatura). |
 | `POST /v1/research` | $0.02 | Research pack: Cyrillic search + top pages assembled into one Markdown answer (one payment instead of a search+page chain). |
 | `POST /v1/research/deep` | $0.05 | Deep research pack: 3 search variants + up to 10 pages in one Markdown answer — full counterparty check. |
+| `POST /v1/pochta-tariff` | $0.01 | Russian Post: delivery cost & time between postal indexes (official API, postal contract). |
+| `POST /v1/pochta-track` | $0.01 | Russian Post: track a shipment by barcode (SOAP tracking.russianpost.ru). |
+| `POST /v1/pochta-delivery-time` | $0.01 | Russian Post: delivery time (days) between postal indexes. |
+| `POST /v1/pochta-offices` | $0.01 | Russian Post: post offices by postal code or nearest by coordinates. |
+| `POST /v1/pochta-zip` | $0.01 | Russian Post: office address and locality by postal code. |
+| `POST /v1/pochta-address` | $0.01 | Russian Post: Russian address normalization (index, region, street, house). |
 
 ## Examples
 
@@ -29,13 +35,13 @@ curl -X POST https://payforapi.com/v1/inn-lookup \
 
 ## MCP
 
-Remote MCP server (streamable-http): `https://payforapi.com/mcp` — 5 tools: `inn_lookup`, `ru_search`, `ru_page`, `ru_research`, `ru_research_deep`. Agents pay via `_meta["x402/payment"]`.
+Remote MCP server (streamable-http): `https://payforapi.com/mcp` — 11 tools: `inn_lookup`, `ru_search`, `ru_page`, `ru_research`, `ru_research_deep`, `pochta_tariff`, `pochta_track`, `pochta_delivery_time`, `pochta_offices`, `pochta_zip`, `pochta_address`. Agents pay via `_meta["x402/payment"]`.
 
 ## Why
 
-- **Only Cyrillic/RU-native segment in the x402 ecosystem**: EGRUL verification, Russian web search, RU scraping.
+- **Only Cyrillic/RU-native segment in the x402 ecosystem**: EGRUL verification, Russian web search, RU scraping, Russian Post data.
 - Keyless for clients: no registration, no API keys — wallet pays, agent gets data.
-- Official sources (EGRUL/FNS), legal for resale (129-ФЗ, 262-ФЗ, 44-ФЗ).
+- Official sources (EGRUL/FNS, Russian Post contract), legal for resale (129-ФЗ, 262-ФЗ, 44-ФЗ).
 
 ## Docs & manifest
 
