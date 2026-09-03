@@ -1,1 +1,170 @@
-"# Saymon RU Data API\n\n> Russian-language data APIs for AI agents. Pay per request in USDC via x402 (HTTP 402 Payment Required). No API keys, no accounts, no subscriptions.\n\nBase URL: https://payforapi.com\nPayment: x402 exact scheme, USDC on Base mainnet (eip155:8453)\nFacilitator: https://x402.primer.systems\nMCP endpoint: https://payforapi.com/mcp (streamable-http)\n\n## Endpoints\n\n### POST /v1/inn-lookup — $0.01 USDC\nПроверка российского юрлица по ИНН (ЕГРЮЛ/ФНС). Returns: ИНН, ОГРН, КПП, наименование, руководитель, дата регистрации, регион.\nRequest: {\"inn\": \"7707083893\"}\n\n### POST /v1/ru-search — $0.02 USDC\nКириллический веб-поиск для агентов. Returns: URL-результаты.\nRequest: {\"query\": \"ООО Рога и Копыта\", \"limit\": 5}\n\n### POST /v1/ru-page — $0.01 USDC\nRU-страница → LLM-ready Markdown.\nRequest: {\"url\": \"https://ria.ru/\"}\n\n### POST /v1/research — $0.02 USDC\nResearch-пакет: кириллический поиск + top-страницы, собранные в один ответ (Markdown).\nОдин платёж вместо цепочки ru-search + ru-page.\nRequest: {\"query\": \"новости нефтегазового рынка\", \"limit\": 5, \"max_pages\": 3}\n\n### POST /v1/research/deep — $0.05 USDC\nResearch-пакет deep: 3 поиска (вариации запроса) + до 10 страниц в один ответ (Markdown).\nДля полной проверки контрагента / глубокого анализа.\nRequest: {\"query\": \"ООО Реальная энергия\", \"limit\": 8, \"max_pages\": 8}\n\n### POST /v1/pochta-tariff — $0.01 USDC\nПочта России: стоимость и сроки доставки между индексами (официальный API, договор Почты России).\nRequest: {\"from_index\": \"101000\", \"to_index\": \"190000\", \"weight\": 1000, \"mail_type\": \"POSTAL_PARCEL\", \"mail_category\": \"ORDINARY\", \"declared_value\": 500000}\n\n### POST /v1/pochta-track — $0.01 USDC\nПочта России: отслеживание отправления по трек-номеру (SOAP tracking.russianpost.ru).\nRequest: {\"barcode\": \"ED109243163RU\"}\n\n### POST /v1/pochta-delivery-time — $0.01 USDC\nПочта России: сроки доставки между индексами (в днях).\nRequest: {\"from_index\": \"101000\", \"to_index\": \"190000\", \"mail_type\": \"POSTAL_PARCEL\", \"mail_category\": \"ORDINARY\"}\n\n### POST /v1/pochta-offices — $0.01 USDC\nПочта России: отделения по индексу (postal_code) или ближайшие по координатам (latitude+longitude).\nRequest: {\"postal_code\": \"101000\"} или {\"latitude\": 55.7558, \"longitude\": 37.6173, \"top\": 10}\n\n### POST /v1/pochta-zip — $0.01 USDC\nПочта России: адрес отделения и населённый пункт по почтовому индексу.\nRequest: {\"postal_code\": \"101000\"}\n\n### POST /v1/pochta-address — $0.01 USDC\nПочта России: нормализация российского адреса (индекс, регион, улица, дом).\nRequest: {\"address\": \"Москва, ул Тверская, д 1\"}\n\n## 中文 (Chinese)\n\n面向AI代理的俄罗斯数据API。按次付费（x402 / HTTP 402），Base链USDC结算。无需注册、无需API密钥、无订阅。\n\n| 端点 | 价格 | 说明 |\n|---|---|---|\n| POST /v1/inn-lookup | $0.01 | 通过ИНН查询俄罗斯企业信息（ЕГРЮЛ/ФНС官方数据）：ОГРН、КПП、负责人、注册日期、地区 |\n| POST /v1/ru-search | $0.02 | 西里尔文（俄语）网页搜索，返回URL、标题、摘要 |\n| POST /v1/ru-page | $0.01 | 俄语网页转LLM友好Markdown |\n| POST /v1/research | $0.02 | 研究包：搜索+精选页面汇总为一份Markdown |\n| POST /v1/research/deep | $0.05 | 深度研究：3次搜索+最多10个页面（全面供应商/客户尽调） |\n| POST /v1/pochta-track | $0.01 | 俄罗斯邮政包裹跟踪（按单号） |\n| POST /v1/pochta-tariff | $0.01 | 俄罗斯邮政：邮编间运费和时效 |\n| POST /v1/pochta-delivery-time | $0.01 | 邮编间配送时效（天） |\n| POST /v1/pochta-offices | $0.01 | 按邮编或坐标查询邮局 |\n| POST /v1/pochta-zip | $0.01 | 邮编查邮局地址 |\n| POST /v1/pochta-address | $0.01 | 俄罗斯地址标准化 |\n\n用法：先请求（无支付）→ 服务端返回 HTTP 402 + payment-required → 签名EIP-3009 USDC转账（Base）→ 带 PAYMENT-SIGNATURE 重发 → 200 + 数据。\n\n## 日本語 (Japanese)\n\nAIエージェント向けロシア語データAPI。x402（HTTP 402）従量課金、BaseチェーンUSDC。APIキー・アカウント・サブスクリプション不要。\n\n| エンドポイント | 価格 | 説明 |\n|---|---|---|\n| POST /v1/inn-lookup | $0.01 | ИННによるロシア法人照会（ЕГРЮЛ/ФНС公式データ）：ОГРН、КПП、代表者、登録日、地域 |\n| POST /v1/ru-search | $0.02 | キリル文字ウェブ検索（URL・タイトル・スニペット） |\n| POST /v1/ru-page | $0.01 | ロシア語ページをLLM対応Markdownに変換 |\n| POST /v1/research | $0.02 | リサーチパック：検索+上位ページをMarkdownに集約 |\n| POST /v1/research/deep | $0.05 | ディープリサーチ：3回検索+最大10ページ（取引先調査・深掘り分析） |\n| POST /v1/pochta-track | $0.01 | ロシア郵便追跡（追跡番号） |\n| POST /v1/pochta-tariff | $0.01 | ロシア郵便：郵便番号間の配送料金と日数 |\n| POST /v1/pochta-delivery-time | $0.01 | 郵便番号間の配達日数 |\n| POST /v1/pochta-offices | $0.01 | 郵便番号・座標で郵便局検索 |\n| POST /v1/pochta-zip | $0.01 | 郵便番号で郵便局住所 |\n| POST /v1/pochta-address | $0.01 | ロシア住所の正規化 |\n\n利用手順：未払いリクエスト→HTTP 402+payment-required→EIP-3009署名（Base USDC）→PAYMENT-SIGNATURE付きで再送→200+データ。\n\n## 한국어 (Korean)\n\nAI 에이전트를 위한 러시아어 데이터 API. x402(HTTP 402) 종량제, Base 체인 USDC 결제. API 키·계정·구독 불필요.\n\n| 엔드포인트 | 가격 | 설명 |\n|---|---|---|\n| POST /v1/inn-lookup | $0.01 | ИНН으로 러시아 법인 조회(ЕГРЮЛ/ФНС 공식 데이터): ОГРН, КПП, 대표자, 등록일, 지역 |\n| POST /v1/ru-search | $0.02 | 키릴 문자(러시아어) 웹 검색 (URL·제목·요약) |\n| POST /v1/ru-page | $0.01 | 러시아어 페이지를 LLM용 Markdown으로 변환 |\n| POST /v1/research | $0.02 | 리서치 패키지: 검색+상위 페이지를 Markdown으로 집약 |\n| POST /v1/research/deep | $0.05 | 딥 리서치: 검색 3회+최대 10페이지 (거래처 조사·심층 분석) |\n| POST /v1/pochta-track | $0.01 | 러시아 우체국 배송 추적(운송장 번호) |\n| POST /v1/pochta-tariff | $0.01 | 러시아 우체국: 우편번호 간 배송 요금 및 기간 |\n| POST /v1/pochta-delivery-time | $0.01 | 우편번호 간 배송 기간(일) |\n| POST /v1/pochta-offices | $0.01 | 우편번호·좌표로 우체국 조회 |\n| POST /v1/pochta-zip | $0.01 | 우편번호로 우체국 주소 조회 |\n| POST /v1/pochta-address | $0.01 | 러시아 주소 정규화 |\n\n사용법: 미결제 요청 → HTTP 402+payment-required → EIP-3009 서명(Base USDC) → PAYMENT-SIGNATURE 헤더로 재전송 → 200+데이터.\n\n## How to pay (x402)\n1. Request without payment → HTTP 402 + payment-required header (base64 PaymentRequired v2).\n2. Sign EIP-3009 transferWithAuthorization for USDC (Base) to accepts[].payTo.\n3. Resend with PAYMENT-SIGNATURE header → 200 OK + payment-response.\n"
+# Saymon RU Data API
+
+> Russian-language data and finance APIs for AI agents, plus LLM chat. Pay per request in USDC via x402 (HTTP 402 Payment Required). No API keys, no accounts, no subscriptions.
+
+Base URL: https://payforapi.com
+Payment: x402 exact scheme, USDC on Base mainnet (eip155:8453)
+Facilitator: https://facilitator.payai.network
+MCP endpoint: https://payforapi.com/mcp (streamable-http, 15 tools)
+
+## Endpoints (18)
+
+### POST /v1/inn-lookup — $0.01 USDC
+Проверка российского юрлица по ИНН (ЕГРЮЛ/ФНС). Returns: ИНН, ОГРН, КПП, наименование, руководитель, дата регистрации, регион.
+Request: {"inn": "7707083893"}
+
+### POST /v1/fns-npd-check — $0.01 USDC
+Проверка статуса самозанятого (НПД) по ИНН через ФНС. Returns: is_npd_payer, message, checked_date.
+Request: {"inn": "7707083893"}
+
+### POST /v1/ru-search — $0.02 USDC
+Кириллический веб-поиск для агентов. Returns: URL-результаты.
+Request: {"query": "ООО Рога и Копыта", "limit": 5}
+
+### POST /v1/web-search — $0.02 USDC
+Глобальный веб-поиск для агентов (агрегация Tavily). Returns: URL, title, snippet.
+Request: {"query": "MOEX index today", "limit": 5}
+
+### POST /v1/ru-page — $0.01 USDC
+RU-страница → LLM-ready Markdown.
+Request: {"url": "https://ria.ru/"}
+
+### POST /v1/research — $0.02 USDC
+Research-пакет: кириллический поиск + top-страницы, собранные в один ответ (Markdown).
+Один платёж вместо цепочки ru-search + ru-page.
+Request: {"query": "новости нефтегазового рынка", "limit": 5, "max_pages": 3}
+
+### POST /v1/research/deep — $0.05 USDC
+Research-пакет deep: 3 поиска (вариации запроса) + до 10 страниц в один ответ (Markdown).
+Для полной проверки контрагента / глубокого анализа.
+Request: {"query": "ООО Реальная энергия", "limit": 8, "max_pages": 8}
+
+### POST /v1/pochta-tariff — $0.01 USDC
+Почта России: стоимость и сроки доставки между индексами (официальный API, договор Почты России).
+Request: {"from_index": "101000", "to_index": "190000", "weight": 1000, "mail_type": "POSTAL_PARCEL", "mail_category": "ORDINARY", "declared_value": 500000}
+
+### POST /v1/pochta-track — $0.01 USDC
+Почта России: отслеживание отправления по трек-номеру (SOAP tracking.russianpost.ru).
+Request: {"barcode": "ED109243163RU"}
+
+### POST /v1/pochta-delivery-time — $0.01 USDC
+Почта России: сроки доставки между индексами (в днях).
+Request: {"from_index": "101000", "to_index": "190000", "mail_type": "POSTAL_PARCEL", "mail_category": "ORDINARY"}
+
+### POST /v1/pochta-offices — $0.01 USDC
+Почта России: отделения по индексу (postal_code) или ближайшие по координатам (latitude+longitude).
+Request: {"postal_code": "101000"} или {"latitude": 55.7558, "longitude": 37.6173, "top": 10}
+
+### POST /v1/pochta-zip — $0.01 USDC
+Почта России: адрес отделения и населённый пункт по почтовому индексу.
+Request: {"postal_code": "101000"}
+
+### POST /v1/pochta-address — $0.01 USDC
+Почта России: нормализация российского адреса (индекс, регион, улица, дом).
+Request: {"address": "Москва, ул Тверская, д 1"}
+
+### POST /v1/ticker — $0.005 USDC
+Крипто-тикеры Bybit spot: последняя цена, изменение за 24ч, объём.
+Request: {"symbols": ["BTCUSDT", "ETHUSDT"]}
+
+### POST /v1/cbr-rates — $0.008 USDC
+Официальные курсы ЦБ РФ (daily_json): USD, EUR, CNY, GBP, KZT и другие ISO-коды.
+Request: {"codes": ["USD", "EUR", "CNY"]}
+
+### POST /v1/moex-quote — $0.008 USDC
+Котировки Московской биржи (MOEX ISS): акции (SBER, GAZP...), валютные пары, индексы (IMOEX).
+Request: {"symbols": ["SBER", "GAZP", "IMOEX"]}
+
+### POST /v1/chat/gpt-5.6-sol — $0.02 USDC
+LLM-чат: OpenAI gpt-5.6-sol (reasoning), оплата за вызов.
+Request: {"messages": [{"role": "user", "content": "..."}]}
+
+### POST /v1/chat/claude-opus-5 — $0.05 USDC
+LLM-чат: Anthropic claude-opus-5 (reasoning), оплата за вызов.
+Request: {"messages": [{"role": "user", "content": "..."}]}
+
+## 中文 (Chinese)
+
+面向AI代理的俄罗斯数据API。按次付费（x402 / HTTP 402），Base链USDC结算。无需注册、无需API密钥、无订阅。
+
+| 端点 | 价格 | 说明 |
+|---|---|---|
+| POST /v1/inn-lookup | $0.01 | 通过ИНН查询俄罗斯企业信息（ЕГРЮЛ/ФНС官方数据）：ОГРН、КПП、负责人、注册日期、地区 |
+| POST /v1/fns-npd-check | $0.01 | 俄罗斯自雇人士（НПД）状态核实（ФНС） |
+| POST /v1/ru-search | $0.02 | 西里尔文（俄语）网页搜索，返回URL、标题、摘要 |
+| POST /v1/web-search | $0.02 | 全球网页搜索（Tavily聚合） |
+| POST /v1/ru-page | $0.01 | 俄语网页转LLM友好Markdown |
+| POST /v1/research | $0.02 | 研究包：搜索+精选页面汇总为一份Markdown |
+| POST /v1/research/deep | $0.05 | 深度研究：3次搜索+最多10个页面（全面供应商/客户尽调） |
+| POST /v1/pochta-track | $0.01 | 俄罗斯邮政包裹跟踪（按单号） |
+| POST /v1/pochta-tariff | $0.01 | 俄罗斯邮政：邮编间运费和时效 |
+| POST /v1/pochta-delivery-time | $0.01 | 邮编间配送时效（天） |
+| POST /v1/pochta-offices | $0.01 | 按邮编或坐标查询邮局 |
+| POST /v1/pochta-zip | $0.01 | 邮编查邮局地址 |
+| POST /v1/pochta-address | $0.01 | 俄罗斯地址标准化 |
+| POST /v1/ticker | $0.005 | Bybit现货加密货币行情 |
+| POST /v1/cbr-rates | $0.008 | 俄罗斯央行官方汇率（USD/EUR/CNY…） |
+| POST /v1/moex-quote | $0.008 | 莫斯科交易所行情（股票/外汇/指数） |
+| POST /v1/chat/gpt-5.6-sol | $0.02 | LLM对话：OpenAI gpt-5.6-sol |
+| POST /v1/chat/claude-opus-5 | $0.05 | LLM对话：Anthropic claude-opus-5 |
+
+用法：先请求（无支付）→ 服务端返回 HTTP 402 + payment-required → 签名EIP-3009 USDC转账（Base）→ 带 PAYMENT-SIGNATURE 重发 → 200 + 数据。
+
+## 日本語 (Japanese)
+
+AIエージェント向けロシア語データAPI。x402（HTTP 402）従量課金、BaseチェーンUSDC。APIキー・アカウント・サブスクリプション不要。
+
+| エンドポイント | 価格 | 説明 |
+|---|---|---|
+| POST /v1/inn-lookup | $0.01 | ИННによるロシア法人照会（ЕГРЮЛ/ФНС公式データ）：ОГРН、КПП、代表者、登録日、地域 |
+| POST /v1/fns-npd-check | $0.01 | 個人事業主（НПД）ステータス確認（ФНС） |
+| POST /v1/ru-search | $0.02 | キリル文字ウェブ検索（URL・タイトル・スニペット） |
+| POST /v1/web-search | $0.02 | グローバルウェブ検索（Tavily集約） |
+| POST /v1/ru-page | $0.01 | ロシア語ページをLLM対応Markdownに変換 |
+| POST /v1/research | $0.02 | リサーチパック：検索+上位ページをMarkdownに集約 |
+| POST /v1/research/deep | $0.05 | ディープリサーチ：3回検索+最大10ページ（取引先調査・深掘り分析） |
+| POST /v1/pochta-track | $0.01 | ロシア郵便追跡（追跡番号） |
+| POST /v1/pochta-tariff | $0.01 | ロシア郵便：郵便番号間の配送料金と日数 |
+| POST /v1/pochta-delivery-time | $0.01 | 郵便番号間の配達日数 |
+| POST /v1/pochta-offices | $0.01 | 郵便番号・座標で郵便局検索 |
+| POST /v1/pochta-zip | $0.01 | 郵便番号で郵便局住所 |
+| POST /v1/pochta-address | $0.01 | ロシア住所の正規化 |
+| POST /v1/ticker | $0.005 | Bybitスポット仮想通貨ティッカー |
+| POST /v1/cbr-rates | $0.008 | ロシア中央銀行公式為替レート（USD/EUR/CNY…） |
+| POST /v1/moex-quote | $0.008 | モスクワ取引所の株価・為替・指数 |
+| POST /v1/chat/gpt-5.6-sol | $0.02 | LLMチャット：OpenAI gpt-5.6-sol |
+| POST /v1/chat/claude-opus-5 | $0.05 | LLMチャット：Anthropic claude-opus-5 |
+
+利用手順：未払いリクエスト→HTTP 402+payment-required→EIP-3009署名（Base USDC）→PAYMENT-SIGNATURE付きで再送→200+データ。
+
+## 한국어 (Korean)
+
+AI 에이전트를 위한 러시아어 데이터 API. x402(HTTP 402) 종량제, Base 체인 USDC 결제. API 키·계정·구독 불필요.
+
+| 엔드포인트 | 가격 | 설명 |
+|---|---|---|
+| POST /v1/inn-lookup | $0.01 | ИНН으로 러시아 법인 조회(ЕГРЮЛ/ФНС 공식 데이터): ОГРН, КПП, 대표자, 등록일, 지역 |
+| POST /v1/fns-npd-check | $0.01 | 러시아 자영업자(НПД) 상태 확인(ФНС) |
+| POST /v1/ru-search | $0.02 | 키릴 문자(러시아어) 웹 검색 (URL·제목·요약) |
+| POST /v1/web-search | $0.02 | 글로벌 웹 검색 (Tavily 집계) |
+| POST /v1/ru-page | $0.01 | 러시아어 페이지를 LLM용 Markdown으로 변환 |
+| POST /v1/research | $0.02 | 리서치 패키지: 검색+상위 페이지를 Markdown으로 집약 |
+| POST /v1/research/deep | $0.05 | 딥 리서치: 검색 3회+최대 10페이지 (거래처 조사·심층 분석) |
+| POST /v1/pochta-track | $0.01 | 러시아 우체국 배송 추적(운송장 번호) |
+| POST /v1/pochta-tariff | $0.01 | 러시아 우체국: 우편번호 간 배송 요금 및 기간 |
+| POST /v1/pochta-delivery-time | $0.01 | 우편번호 간 배송 기간(일) |
+| POST /v1/pochta-offices | $0.01 | 우편번호·좌표로 우체국 조회 |
+| POST /v1/pochta-zip | $0.01 | 우편번호로 우체국 주소 조회 |
+| POST /v1/pochta-address | $0.01 | 러시아 주소 정규화 |
+| POST /v1/ticker | $0.005 | Bybit 현물 암호화폐 티커 |
+| POST /v1/cbr-rates | $0.008 | 러시아 중앙은행 공식 환율 (USD/EUR/CNY…) |
+| POST /v1/moex-quote | $0.008 | 모스크바 거래소 시세 (주식/외환/지수) |
+| POST /v1/chat/gpt-5.6-sol | $0.02 | LLM 채팅: OpenAI gpt-5.6-sol |
+| POST /v1/chat/claude-opus-5 | $0.05 | LLM 채팅: Anthropic claude-opus-5 |
+
+사용법: 미결제 요청 → HTTP 402+payment-required → EIP-3009 서명(Base USDC) → PAYMENT-SIGNATURE 헤더로 재전송 → 200+데이터.
+
+## How to pay (x402)
+1. Request without payment → HTTP 402 + payment-required header (base64 PaymentRequired v2).
+2. Sign EIP-3009 transferWithAuthorization for USDC (Base) to accepts[].payTo.
+3. Resend with PAYMENT-SIGNATURE header → 200 OK + payment-response.
