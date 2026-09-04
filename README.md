@@ -2,7 +2,7 @@
 
 > 🇷🇺 Российские данные для AI-агентов · 🇨🇳 面向AI代理的俄罗斯数据API · 🇯🇵 AIエージェント向けロシア語データAPI · 🇰🇷 AI 에이전트를 위한 러시아어 데이터 API
 
-Russian-language data and finance endpoints for AI agents, plus LLM chat. Pay per request in USDC via **x402** (HTTP 402 Payment Required). **No API keys, no accounts, no subscriptions.**
+**The only legal window into the Russian market for AI agents.** Russian-language (Runet) data: state-registry company checks, Runet search, Russian Post delivery, CBR/MOEX market data. Pay per request in USDC via **x402** (HTTP 402 Payment Required). **No API keys, no accounts, no subscriptions.**
 
 Base URL: `https://payforapi.com` · MCP: `https://payforapi.com/mcp` · Health: `https://payforapi.com/health` · Manifest: `https://payforapi.com/.well-known/x402.json`
 
@@ -12,22 +12,22 @@ Network: Base mainnet (`eip155:8453`) · Asset: USDC · Facilitator: `https://fa
 
 | Endpoint | Price | Description |
 |---|---|---|
-| `POST /v1/inn-lookup` | $0.01 | Verify Russian legal entity by INN from official EGRUL (Federal Tax Service). Returns INN, OGRN, KPP, name, director, registration date, region. |
-| `POST /v1/fns-npd-check` | $0.01 | Check Russian self-employed (NPD) status by INN via FNS. Returns `is_npd_payer`, message, checked date. |
-| `POST /v1/ru-search` | $0.02 | Cyrillic web search (Yandex Search API upstream). Returns URL, title, snippet. |
-| `POST /v1/web-search` | $0.02 | Global web search for agents (Tavily upstream). |
-| `POST /v1/ru-page` | $0.01 | Russian-language page → clean LLM-ready Markdown (trafilatura). |
-| `POST /v1/research` | $0.02 | Research pack: search + top pages in one Markdown dossier. |
-| `POST /v1/research/deep` | $0.05 | Deep research: 3 searches + up to 10 pages (full counterparty check). |
-| `POST /v1/pochta-tariff` | $0.01 | Russian Post: delivery cost & time between postcodes (official API). |
-| `POST /v1/pochta-track` | $0.01 | Russian Post: track a parcel by tracking number (SOAP). |
-| `POST /v1/pochta-delivery-time` | $0.01 | Russian Post: delivery time between postcodes (days). |
-| `POST /v1/pochta-offices` | $0.01 | Russian Post: offices by postcode or coordinates. |
-| `POST /v1/pochta-zip` | $0.01 | Russian Post: office address by postcode. |
-| `POST /v1/pochta-address` | $0.01 | Russian Post: Russian address normalization. |
+| `POST /v1/inn-lookup` | $0.01 | **Russian company check by INN** — official EGRUL state registry, unavailable to foreign checkers (merchant KYB before a deal). |
+| `POST /v1/fns-npd-check` | $0.01 | **RU self-employed (NPD) status** by INN via FNS. Run before paying a contractor. |
+| `POST /v1/ru-search` | $0.02 | **Runet search** (Russian-language internet) via Yandex — products, prices, sellers, reviews English engines miss. The only legal window into the Russian market. |
+| `POST /v1/web-search` | $0.02 | Global web search (Tavily) — the Western half of the pair with Runet search: sources the runet lacks. |
+| `POST /v1/ru-page` | $0.01 | Clean **Russian-language page** → LLM-ready Markdown (trafilatura): product card, store, news. |
+| `POST /v1/research` | $0.02 | **Runet dossier**: search + top pages in one Markdown report — seller, product, company. |
+| `POST /v1/research/deep` | $0.05 | **Deep Runet dossier**: 3 searches + up to 10 pages — RU courts, media, registries. Vet before a large order. |
+| `POST /v1/pochta-tariff` | $0.01 | **Russian Post**: delivery cost between postcodes (official API) — shipping math for checkout. |
+| `POST /v1/pochta-track` | $0.01 | **Russian Post**: parcel tracking by track number (SOAP) — the only legal RU tracking. |
+| `POST /v1/pochta-delivery-time` | $0.01 | **Russian Post**: control delivery times between postcodes (days). |
+| `POST /v1/pochta-offices` | $0.01 | **Russian Post**: offices by postcode or coordinates — pickup points. |
+| `POST /v1/pochta-zip` | $0.01 | **Russian postal codes** by address or office. |
+| `POST /v1/pochta-address` | $0.01 | **RU address normalization** to Russian Post standard (index, region, street, house). |
 | `POST /v1/ticker` | $0.005 | Bybit spot crypto tickers: last price, 24h change, volume. |
-| `POST /v1/cbr-rates` | $0.008 | Official Central Bank of Russia FX rates (USD, EUR, CNY, GBP, KZT…). |
-| `POST /v1/moex-quote` | $0.008 | MOEX market quotes: stocks (SBER, GAZP…), FX pairs, indices (IMOEX). |
+| `POST /v1/cbr-rates` | $0.008 | **Central Bank of Russia** official daily FX rates (USD, EUR, CNY…) — state reference for RUB pricing. |
+| `POST /v1/moex-quote` | $0.008 | **Moscow Exchange** quotes: stocks (SBER, GAZP…), FX pairs, indices (IMOEX) — live Russian market data. |
 | `POST /v1/chat/gpt-5.6-sol` | $0.02 | LLM chat: OpenAI gpt-5.6-sol reasoning model, pay per call. |
 | `POST /v1/chat/claude-opus-5` | $0.05 | LLM chat: Anthropic claude-opus-5 reasoning model, pay per call. |
 
