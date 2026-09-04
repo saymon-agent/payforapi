@@ -8,7 +8,7 @@ Base URL: `https://payforapi.com` · MCP: `https://payforapi.com/mcp` · Health:
 
 Network: Base mainnet (`eip155:8453`) · Asset: USDC · Facilitator: `https://facilitator.payai.network`
 
-## Endpoints (18)
+## Endpoints (22)
 
 | Endpoint | Price | Description |
 |---|---|---|
@@ -19,12 +19,16 @@ Network: Base mainnet (`eip155:8453`) · Asset: USDC · Facilitator: `https://fa
 | `POST /v1/ru-page` | $0.01 | Clean **Russian-language page** → LLM-ready Markdown (trafilatura): product card, store, news. |
 | `POST /v1/research` | $0.02 | **Runet dossier**: search + top pages in one Markdown report — seller, product, company. |
 | `POST /v1/research/deep` | $0.05 | **Deep Runet dossier**: 3 searches + up to 10 pages — RU courts, media, registries. Vet before a large order. |
+| `POST /v1/company-report` | $0.05 | **KYB dossier in one payment**: official EGRUL check + NPD status + deep Runet dossier — 3 services for the price of the dossier (vs $0.07 retail). |
+| `POST /v1/ru-search/x10` | $0.18 | **Bulk Runet search**: up to 10 queries in one payment (10% off vs single calls). |
+| `POST /v1/ru-search/x100` | $1.60 | **Bulk Runet search**: up to 100 queries in one payment (20% off) — catalogs, suppliers, price monitoring. |
 | `POST /v1/pochta-tariff` | $0.01 | **Russian Post**: delivery cost between postcodes (official API) — shipping math for checkout. |
 | `POST /v1/pochta-track` | $0.01 | **Russian Post**: parcel tracking by track number (SOAP) — the only legal RU tracking. |
 | `POST /v1/pochta-delivery-time` | $0.01 | **Russian Post**: control delivery times between postcodes (days). |
 | `POST /v1/pochta-offices` | $0.01 | **Russian Post**: offices by postcode or coordinates — pickup points. |
 | `POST /v1/pochta-zip` | $0.01 | **Russian postal codes** by address or office. |
 | `POST /v1/pochta-address` | $0.01 | **RU address normalization** to Russian Post standard (index, region, street, house). |
+| `POST /v1/pochta-delivery` | $0.04 | **Russian Post delivery bundle**: address + postcode + office + rate + time in one payment (5 services in 1). |
 | `POST /v1/ticker` | $0.005 | Bybit spot crypto tickers: last price, 24h change, volume. |
 | `POST /v1/cbr-rates` | $0.008 | **Central Bank of Russia** official daily FX rates (USD, EUR, CNY…) — state reference for RUB pricing. |
 | `POST /v1/moex-quote` | $0.008 | **Moscow Exchange** quotes: stocks (SBER, GAZP…), FX pairs, indices (IMOEX) — live Russian market data. |
@@ -44,7 +48,7 @@ curl -X POST https://payforapi.com/v1/inn-lookup \
 
 ## MCP
 
-Remote MCP server (streamable-http): `https://payforapi.com/mcp` — 15 tools: `inn_lookup`, `ru_search`, `ru_page`, `ru_research`, `ru_research_deep`, `cbr_rates`, `moex_quote`, `pochta_tariff`, `pochta_track`, `pochta_delivery_time`, `pochta_offices`, `pochta_zip`, `pochta_address`, `gpt_5_6_sol_chat`, `claude_opus_5_chat`. Agents pay via `_meta["x402/payment"]`.
+Remote MCP server (streamable-http): `https://payforapi.com/mcp` — 17 tools: `inn_lookup`, `ru_search`, `ru_page`, `ru_research`, `ru_research_deep`, `company_report`, `cbr_rates`, `moex_quote`, `pochta_tariff`, `pochta_track`, `pochta_delivery_time`, `pochta_offices`, `pochta_zip`, `pochta_address`, `pochta_delivery`, `gpt_5_6_sol_chat`, `claude_opus_5_chat`. Agents pay via `_meta["x402/payment"]`.
 
 ## 中文 (Chinese)
 
@@ -55,7 +59,9 @@ Remote MCP server (streamable-http): `https://payforapi.com/mcp` — 15 tools: `
 - **俄语搜索**：`POST /v1/ru-search`（$0.02）· 全球搜索 `web-search`（$0.02）
 - **俄语网页转Markdown**：`POST /v1/ru-page`（$0.01）
 - **研究包**：`POST /v1/research`（$0.02）· `POST /v1/research/deep`（$0.05）— 供应商/客户尽调
-- **俄罗斯邮政**：`POST /v1/pochta-track`（$0.01，包裹跟踪）· `pochta-tariff` · `pochta-delivery-time` · `pochta-offices` · `pochta-zip` · `pochta-address`（各$0.01）
+- **KYB尽调包**：`POST /v1/company-report`（$0.05）— ЕГРЮЛ核实+НПД状态+深度俄网报告
+- **批量俄语搜索**：`POST /v1/ru-search/x10`（$0.18）· `POST /v1/ru-search/x100`（$1.60）
+- **俄罗斯邮政**：`POST /v1/pochta-track`（$0.01，包裹跟踪）· `pochta-tariff` · `pochta-delivery-time` · `pochta-offices` · `pochta-zip` · `pochta-address`（各$0.01）· **投递包 `pochta-delivery`（$0.04，5合1）**
 - **金融数据**：`cbr-rates`（央行汇率，$0.008）· `moex-quote`（莫斯科交易所报价，$0.008）· `ticker`（加密货币，$0.005）
 - **LLM对话**：`chat/gpt-5.6-sol`（$0.02）· `chat/claude-opus-5`（$0.05）
 
@@ -70,7 +76,9 @@ AIエージェント向けロシア語データAPI。x402（HTTP 402）従量課
 - **ロシア語検索**：`POST /v1/ru-search`（$0.02）· グローバル検索 `web-search`（$0.02）
 - **ページ変換**：`POST /v1/ru-page`（$0.01）— LLM対応Markdown
 - **リサーチ**：`POST /v1/research`（$0.02）· `/v1/research/deep`（$0.05）
-- **ロシア郵便**：`POST /v1/pochta-track`（$0.01，追跡）ほか5エンドポイント（各$0.01）
+- **KYBパック**：`POST /v1/company-report`（$0.05）— 法人確認+НПД+ロシア語ディープ調査を一括
+- **一括ロシア語検索**：`POST /v1/ru-search/x10`（$0.18）· `/v1/ru-search/x100`（$1.60）
+- **ロシア郵便**：`POST /v1/pochta-track`（$0.01，追跡）ほか5エンドポイント（各$0.01）· **配送バンドル `pochta-delivery`（$0.04，5in1）**
 - **金融データ**：`cbr-rates`（中央銀行為替，$0.008）· `moex-quote`（モスクワ取引所，$0.008）· `ticker`（仮想通貨，$0.005）
 - **LLMチャット**：`chat/gpt-5.6-sol`（$0.02）· `chat/claude-opus-5`（$0.05）
 
@@ -83,7 +91,9 @@ AI 에이전트를 위한 러시아어 데이터 API. x402(HTTP 402) 종량제, 
 - **러시아어 검색**：`POST /v1/ru-search`（$0.02）· 글로벌 검색 `web-search`（$0.02）
 - **페이지 변환**：`POST /v1/ru-page`（$0.01）— LLM용 Markdown
 - **리서치**：`POST /v1/research`（$0.02）· `/v1/research/deep`（$0.05）
-- **러시아 우체국**：`POST /v1/pochta-track`（$0.01，배송 추적）외 5개 엔드포인트（각 $0.01）
+- **KYB 패키지**：`POST /v1/company-report`（$0.05）— 법인확인+НПД+러시아어 딥 리포트 일괄
+- **일괄 러시아어 검색**：`POST /v1/ru-search/x10`（$0.18）· `/v1/ru-search/x100`（$1.60）
+- **러시아 우체국**：`POST /v1/pochta-track`（$0.01，배송 추적）외 5개 엔드포인트（각 $0.01）· **배송 번들 `pochta-delivery`（$0.04，5in1）**
 - **금융 데이터**：`cbr-rates`（러시아 중앙은행 환율, $0.008）· `moex-quote`（모스크바 거래소, $0.008）· `ticker`（암호화폐, $0.005）
 - **LLM 채팅**：`chat/gpt-5.6-sol`（$0.02）· `chat/claude-opus-5`（$0.05）
 
