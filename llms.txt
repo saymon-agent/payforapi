@@ -7,6 +7,8 @@ Payment: x402 exact scheme, USDC on Base mainnet (eip155:8453)
 Facilitator: https://facilitator.payai.network
 MCP endpoint: https://payforapi.com/mcp (streamable-http, 17 tools)
 
+Also available via PayAPI Market (same 22 routes, x402, no extra fee): MCP discovery https://payapi.market/mcp · listing https://payapi.market/api/saymon-ru-data-api
+
 ## Endpoints (22)
 
 ### POST /v1/inn-lookup — $0.01 USDC

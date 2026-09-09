@@ -50,6 +50,25 @@ curl -X POST https://payforapi.com/v1/inn-lookup \
 
 Remote MCP server (streamable-http): `https://payforapi.com/mcp` — 17 tools: `inn_lookup`, `ru_search`, `ru_page`, `ru_research`, `ru_research_deep`, `company_report`, `cbr_rates`, `moex_quote`, `pochta_tariff`, `pochta_track`, `pochta_delivery_time`, `pochta_offices`, `pochta_zip`, `pochta_address`, `pochta_delivery`, `gpt_5_6_sol_chat`, `claude_opus_5_chat`. Agents pay via `_meta["x402/payment"]`.
 
+## Also available via PayAPI Market
+
+The same 22 routes are listed on the [PayAPI Market](https://payapi.market) warehouse — agents can discover and call them from there as well as from payforapi.com. Same x402 payment (USDC on Base to the same seller wallet), no extra fees.
+
+- MCP discovery: `https://payapi.market/mcp`
+- Listing: `https://payapi.market/api/saymon-ru-data-api`
+
+Claude Desktop / Cursor config:
+
+```json
+{
+  "mcpServers": {
+    "payapi": {
+      "url": "https://payapi.market/mcp"
+    }
+  }
+}
+```
+
 ## 中文 (Chinese)
 
 面向AI代理的俄罗斯数据API。按次付费（x402 / HTTP 402），Base链USDC结算。无需注册、无需API密钥、无订阅。
