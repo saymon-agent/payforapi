@@ -8,7 +8,7 @@ Base URL: `https://payforapi.com` · MCP: `https://payforapi.com/mcp` · Health:
 
 Network: Base mainnet (`eip155:8453`) · Asset: USDC · Facilitator: `https://facilitator.payai.network`
 
-## Endpoints (22)
+## Endpoints (20)
 
 | Endpoint | Price | Description |
 |---|---|---|
@@ -32,8 +32,6 @@ Network: Base mainnet (`eip155:8453`) · Asset: USDC · Facilitator: `https://fa
 | `POST /v1/ticker` | $0.005 | Bybit spot crypto tickers: last price, 24h change, volume. |
 | `POST /v1/cbr-rates` | $0.008 | **Central Bank of Russia** official daily FX rates (USD, EUR, CNY…) — state reference for RUB pricing. |
 | `POST /v1/moex-quote` | $0.008 | **Moscow Exchange** quotes: stocks (SBER, GAZP…), FX pairs, indices (IMOEX) — live Russian market data. |
-| `POST /v1/chat/gpt-5.6-sol` | $0.02 | LLM chat: OpenAI gpt-5.6-sol reasoning model, pay per call. |
-| `POST /v1/chat/claude-opus-5` | $0.05 | LLM chat: Anthropic claude-opus-5 reasoning model, pay per call. |
 
 ## Examples
 
@@ -48,11 +46,11 @@ curl -X POST https://payforapi.com/v1/inn-lookup \
 
 ## MCP
 
-Remote MCP server (streamable-http): `https://payforapi.com/mcp` — 17 tools: `inn_lookup`, `ru_search`, `ru_page`, `ru_research`, `ru_research_deep`, `company_report`, `cbr_rates`, `moex_quote`, `pochta_tariff`, `pochta_track`, `pochta_delivery_time`, `pochta_offices`, `pochta_zip`, `pochta_address`, `pochta_delivery`, `gpt_5_6_sol_chat`, `claude_opus_5_chat`. Agents pay via `_meta["x402/payment"]`.
+Remote MCP server (streamable-http): `https://payforapi.com/mcp` — 15 tools: `inn_lookup`, `ru_search`, `ru_page`, `ru_research`, `ru_research_deep`, `company_report`, `cbr_rates`, `moex_quote`, `pochta_tariff`, `pochta_track`, `pochta_delivery_time`, `pochta_offices`, `pochta_zip`, `pochta_address`, `pochta_delivery`. Agents pay via `_meta["x402/payment"]`.
 
 ## Also available via PayAPI Market
 
-The same 22 routes are listed on the [PayAPI Market](https://payapi.market) warehouse — agents can discover and call them from there as well as from payforapi.com. Same x402 payment (USDC on Base to the same seller wallet), no extra fees.
+The same 20 routes are listed on the [PayAPI Market](https://payapi.market) warehouse — agents can discover and call them from there as well as from payforapi.com. Same x402 payment (USDC on Base to the same seller wallet), no extra fees.
 
 - MCP discovery: `https://payapi.market/mcp`
 - Listing: `https://payapi.market/api/saymon-ru-data-api`
@@ -82,7 +80,6 @@ Claude Desktop / Cursor config:
 - **批量俄语搜索**：`POST /v1/ru-search/x10`（$0.18）· `POST /v1/ru-search/x100`（$1.60）
 - **俄罗斯邮政**：`POST /v1/pochta-track`（$0.01，包裹跟踪）· `pochta-tariff` · `pochta-delivery-time` · `pochta-offices` · `pochta-zip` · `pochta-address`（各$0.01）· **投递包 `pochta-delivery`（$0.04，5合1）**
 - **金融数据**：`cbr-rates`（央行汇率，$0.008）· `moex-quote`（莫斯科交易所报价，$0.008）· `ticker`（加密货币，$0.005）
-- **LLM对话**：`chat/gpt-5.6-sol`（$0.02）· `chat/claude-opus-5`（$0.05）
 
 中俄贸易背景下的应用：进口商/出口商在交易前核验俄方企业真实性，物流团队跟踪俄罗斯邮政包裹（17TRACK等免费平台无API接口，本服务提供按次计费的机器可读API）。
 
@@ -99,7 +96,6 @@ AIエージェント向けロシア語データAPI。x402（HTTP 402）従量課
 - **一括ロシア語検索**：`POST /v1/ru-search/x10`（$0.18）· `/v1/ru-search/x100`（$1.60）
 - **ロシア郵便**：`POST /v1/pochta-track`（$0.01，追跡）ほか5エンドポイント（各$0.01）· **配送バンドル `pochta-delivery`（$0.04，5in1）**
 - **金融データ**：`cbr-rates`（中央銀行為替，$0.008）· `moex-quote`（モスクワ取引所，$0.008）· `ticker`（仮想通貨，$0.005）
-- **LLMチャット**：`chat/gpt-5.6-sol`（$0.02）· `chat/claude-opus-5`（$0.05）
 
 ## 한국어 (Korean)
 
@@ -114,7 +110,6 @@ AI 에이전트를 위한 러시아어 데이터 API. x402(HTTP 402) 종량제, 
 - **일괄 러시아어 검색**：`POST /v1/ru-search/x10`（$0.18）· `/v1/ru-search/x100`（$1.60）
 - **러시아 우체국**：`POST /v1/pochta-track`（$0.01，배송 추적）외 5개 엔드포인트（각 $0.01）· **배송 번들 `pochta-delivery`（$0.04，5in1）**
 - **금융 데이터**：`cbr-rates`（러시아 중앙은행 환율, $0.008）· `moex-quote`（모스크바 거래소, $0.008）· `ticker`（암호화폐, $0.005）
-- **LLM 채팅**：`chat/gpt-5.6-sol`（$0.02）· `chat/claude-opus-5`（$0.05）
 
 ## Why
 

@@ -1,15 +1,15 @@
 # Saymon RU Data API
 
-> Russian-language data and finance APIs for AI agents, plus LLM chat. Pay per request in USDC via x402 (HTTP 402 Payment Required). No API keys, no accounts, no subscriptions.
+> Russian-language data and finance APIs for AI agents. Pay per request in USDC via x402 (HTTP 402 Payment Required). No API keys, no accounts, no subscriptions.
 
 Base URL: https://payforapi.com
 Payment: x402 exact scheme, USDC on Base mainnet (eip155:8453)
 Facilitator: https://facilitator.payai.network
-MCP endpoint: https://payforapi.com/mcp (streamable-http, 17 tools)
+MCP endpoint: https://payforapi.com/mcp (streamable-http, 15 tools)
 
-Also available via PayAPI Market (same 22 routes, x402, no extra fee): MCP discovery https://payapi.market/mcp · listing https://payapi.market/api/saymon-ru-data-api
+Also available via PayAPI Market (same 20 routes, x402, no extra fee): MCP discovery https://payapi.market/mcp · listing https://payapi.market/api/saymon-ru-data-api
 
-## Endpoints (22)
+## Endpoints (20)
 
 ### POST /v1/inn-lookup — $0.01 USDC
 Проверка российского юрлица по ИНН (ЕГРЮЛ/ФНС). Returns: ИНН, ОГРН, КПП, наименование, руководитель, дата регистрации, регион.
@@ -97,14 +97,6 @@ Request: {"codes": ["USD", "EUR", "CNY"]}
 Котировки Московской биржи (MOEX ISS): акции (SBER, GAZP...), валютные пары, индексы (IMOEX).
 Request: {"symbols": ["SBER", "GAZP", "IMOEX"]}
 
-### POST /v1/chat/gpt-5.6-sol — $0.02 USDC
-LLM-чат: OpenAI gpt-5.6-sol (reasoning), оплата за вызов.
-Request: {"messages": [{"role": "user", "content": "..."}]}
-
-### POST /v1/chat/claude-opus-5 — $0.05 USDC
-LLM-чат: Anthropic claude-opus-5 (reasoning), оплата за вызов.
-Request: {"messages": [{"role": "user", "content": "..."}]}
-
 ## 中文 (Chinese)
 
 面向AI代理的俄罗斯数据API。按次付费（x402 / HTTP 402），Base链USDC结算。无需注册、无需API密钥、无订阅。
@@ -131,8 +123,6 @@ Request: {"messages": [{"role": "user", "content": "..."}]}
 | POST /v1/ticker | $0.005 | Bybit现货加密货币行情 |
 | POST /v1/cbr-rates | $0.008 | 俄罗斯央行官方汇率（USD/EUR/CNY…） |
 | POST /v1/moex-quote | $0.008 | 莫斯科交易所行情（股票/外汇/指数） |
-| POST /v1/chat/gpt-5.6-sol | $0.02 | LLM对话：OpenAI gpt-5.6-sol |
-| POST /v1/chat/claude-opus-5 | $0.05 | LLM对话：Anthropic claude-opus-5 |
 
 用法：先请求（无支付）→ 服务端返回 HTTP 402 + payment-required → 签名EIP-3009 USDC转账（Base）→ 带 PAYMENT-SIGNATURE 重发 → 200 + 数据。
 
@@ -162,8 +152,6 @@ AIエージェント向けロシア語データAPI。x402（HTTP 402）従量課
 | POST /v1/ticker | $0.005 | Bybitスポット仮想通貨ティッカー |
 | POST /v1/cbr-rates | $0.008 | ロシア中央銀行公式為替レート（USD/EUR/CNY…） |
 | POST /v1/moex-quote | $0.008 | モスクワ取引所の株価・為替・指数 |
-| POST /v1/chat/gpt-5.6-sol | $0.02 | LLMチャット：OpenAI gpt-5.6-sol |
-| POST /v1/chat/claude-opus-5 | $0.05 | LLMチャット：Anthropic claude-opus-5 |
 
 利用手順：未払いリクエスト→HTTP 402+payment-required→EIP-3009署名（Base USDC）→PAYMENT-SIGNATURE付きで再送→200+データ。
 
@@ -193,8 +181,6 @@ AI 에이전트를 위한 러시아어 데이터 API. x402(HTTP 402) 종량제, 
 | POST /v1/ticker | $0.005 | Bybit 현물 암호화폐 티커 |
 | POST /v1/cbr-rates | $0.008 | 러시아 중앙은행 공식 환율 (USD/EUR/CNY…) |
 | POST /v1/moex-quote | $0.008 | 모스크바 거래소 시세 (주식/외환/지수) |
-| POST /v1/chat/gpt-5.6-sol | $0.02 | LLM 채팅: OpenAI gpt-5.6-sol |
-| POST /v1/chat/claude-opus-5 | $0.05 | LLM 채팅: Anthropic claude-opus-5 |
 
 사용법: 미결제 요청 → HTTP 402+payment-required → EIP-3009 서명(Base USDC) → PAYMENT-SIGNATURE 헤더로 재전송 → 200+데이터.
 
