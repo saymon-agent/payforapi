@@ -4,7 +4,7 @@
 
 Base URL: https://payforapi.com
 Payment: x402 exact scheme, USDC on Base mainnet (eip155:8453)
-Facilitator: https://facilitator.payai.network
+Facilitator: https://x402.primer.systems
 MCP endpoint: https://payforapi.com/mcp (streamable-http, 15 tools)
 
 Also available via PayAPI Market (same 20 routes, x402, no extra fee): MCP discovery https://payapi.market/mcp · listing https://payapi.market/api/saymon-ru-data-api
