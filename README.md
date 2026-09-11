@@ -6,7 +6,7 @@
 
 Base URL: `https://payforapi.com` · MCP: `https://payforapi.com/mcp` · Health: `https://payforapi.com/health` · Manifest: `https://payforapi.com/.well-known/x402.json`
 
-Network: Base mainnet (`eip155:8453`) · Asset: USDC · Facilitator: `https://facilitator.payai.network`
+Network: Base mainnet (`eip155:8453`) · Asset: USDC · Facilitator: `https://x402.primer.systems`
 
 ## Endpoints (20)
 
