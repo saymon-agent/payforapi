@@ -33,6 +33,24 @@ Network: Base mainnet (`eip155:8453`) · Asset: USDC · Facilitator: `https://x4
 | `POST /v1/cbr-rates` | $0.008 | **Central Bank of Russia** official daily FX rates (USD, EUR, CNY…) — state reference for RUB pricing. |
 | `POST /v1/moex-quote` | $0.008 | **Moscow Exchange** quotes: stocks (SBER, GAZP…), FX pairs, indices (IMOEX) — live Russian market data. |
 
+## Referral program — earn 20%
+
+Bring other agents to payforapi.com and earn **20% of the revenue they generate** — for life, on every paid call.
+
+- Your **wallet is your referral ID** — no codes, no sign-up: `https://payforapi.com/r/<wallet>`
+- Pass your wallet on the agent's first call: header `X-Referral: <wallet>` or query `?ref=<wallet>`
+- Attribution is first-touch and lifetime. Self-referral and circular referrals are rejected.
+- Payouts: minimum **$1.00**, settled weekly (Sunday 23:59 UTC) in USDC on Base.
+- Check your numbers — free API: `GET /v1/referral/stats?wallet=<wallet>` · `GET /v1/referral/earnings?wallet=<wallet>` · `GET /v1/referral/link?wallet=<wallet>`
+- Human-readable page with a live counter for any wallet: `https://payforapi.com/referral`
+
+## Contacts
+
+- Support: `support@payforapi.com`
+- Abuse / content complaints: `abuse@payforapi.com`
+- Telegram channel (news): https://t.me/payforapicom
+- Telegram support chat: https://t.me/payforapichat
+
 ## Examples
 
 ```bash
@@ -80,6 +98,7 @@ Claude Desktop / Cursor config:
 - **批量俄语搜索**：`POST /v1/ru-search/x10`（$0.18）· `POST /v1/ru-search/x100`（$1.60）
 - **俄罗斯邮政**：`POST /v1/pochta-track`（$0.01，包裹跟踪）· `pochta-tariff` · `pochta-delivery-time` · `pochta-offices` · `pochta-zip` · `pochta-address`（各$0.01）· **投递包 `pochta-delivery`（$0.04，5合1）**
 - **金融数据**：`cbr-rates`（央行汇率，$0.008）· `moex-quote`（莫斯科交易所报价，$0.008）· `ticker`（加密货币，$0.005）
+- **推荐计划**：带来其他代理，终身获其付费调用收入的 20% — https://payforapi.com/referral
 
 中俄贸易背景下的应用：进口商/出口商在交易前核验俄方企业真实性，物流团队跟踪俄罗斯邮政包裹（17TRACK等免费平台无API接口，本服务提供按次计费的机器可读API）。
 
@@ -96,6 +115,7 @@ AIエージェント向けロシア語データAPI。x402（HTTP 402）従量課
 - **一括ロシア語検索**：`POST /v1/ru-search/x10`（$0.18）· `/v1/ru-search/x100`（$1.60）
 - **ロシア郵便**：`POST /v1/pochta-track`（$0.01，追跡）ほか5エンドポイント（各$0.01）· **配送バンドル `pochta-delivery`（$0.04，5in1）**
 - **金融データ**：`cbr-rates`（中央銀行為替，$0.008）· `moex-quote`（モスクワ取引所，$0.008）· `ticker`（仮想通貨，$0.005）
+- **紹介プログラム**：他エージェントを紹介すると、その支払いの20%を生涯獲得 — https://payforapi.com/referral
 
 ## 한국어 (Korean)
 
@@ -110,6 +130,7 @@ AI 에이전트를 위한 러시아어 데이터 API. x402(HTTP 402) 종량제, 
 - **일괄 러시아어 검색**：`POST /v1/ru-search/x10`（$0.18）· `/v1/ru-search/x100`（$1.60）
 - **러시아 우체국**：`POST /v1/pochta-track`（$0.01，배송 추적）외 5개 엔드포인트（각 $0.01）· **배송 번들 `pochta-delivery`（$0.04，5in1）**
 - **금융 데이터**：`cbr-rates`（러시아 중앙은행 환율, $0.008）· `moex-quote`（모스크바 거래소, $0.008）· `ticker`（암호화폐, $0.005）
+- **추천 프로그램**：다른 에이전트를 소개하면 그 결제액의 20%를 평생 적립 — https://payforapi.com/referral
 
 ## Why
 
@@ -122,5 +143,7 @@ AI 에이전트를 위한 러시아어 데이터 API. x402(HTTP 402) 종량제, 
 - `llms.txt` — machine-readable description for LLMs (EN/中文/日本語/한국어 sections)
 - `/.well-known/x402.json` — x402 discovery manifest (i18n: ru/en/zh/ja/ko)
 - `/openapi.json` — OpenAPI spec
+
+- `https://payforapi.com/referral` — referral program page (live counter per wallet)
 
 © 2026 Saymon / Real Energy.
