@@ -168,4 +168,8 @@ AI 에이전트를 위한 러시아어 데이터 API. x402(HTTP 402) 종량제, 
 
 - `https://payforapi.com/referral` — referral program page (live counter per wallet)
 
+## License
+
+MIT — see [LICENSE](LICENSE).
+
 © 2026 Saymon / Real Energy.
