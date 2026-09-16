@@ -66,6 +66,28 @@ curl -X POST https://payforapi.com/v1/inn-lookup \
 
 Remote MCP server (streamable-http): `https://payforapi.com/mcp` — 15 tools: `inn_lookup`, `ru_search`, `ru_page`, `ru_research`, `ru_research_deep`, `company_report`, `cbr_rates`, `moex_quote`, `pochta_tariff`, `pochta_track`, `pochta_delivery_time`, `pochta_offices`, `pochta_zip`, `pochta_address`, `pochta_delivery`. Agents pay via `_meta["x402/payment"]`.
 
+### Local stdio server (Docker)
+
+Clients that only speak stdio (Claude Desktop, Cursor, Cline, …) can run the same tool catalogue locally. The container starts and answers MCP introspection (`initialize` / `tools/list`) with **no network and no secrets**; tool calls are proxied to the hosted x402 endpoint, so payment stays per call in USDC on Base.
+
+```bash
+docker build -t saymon-ru-data-api-mcp .
+```
+
+```json
+{
+  "mcpServers": {
+    "saymon-ru-data-api": {
+      "command": "docker",
+      "args": ["run", "-i", "--rm", "saymon-ru-data-api-mcp"],
+      "env": { "PAYFORAPI_MCP_URL": "https://payforapi.com/mcp" }
+    }
+  }
+}
+```
+
+Files: `server.py` (stdio server), `tools.json` (EN tool catalogue), `Dockerfile`, `glama.json`.
+
 ## Also available via PayAPI Market
 
 The same 20 routes are listed on the [PayAPI Market](https://payapi.market) warehouse — agents can discover and call them from there as well as from payforapi.com. Same x402 payment (USDC on Base to the same seller wallet), no extra fees.

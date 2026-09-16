@@ -1,0 +1,391 @@
+[
+  {
+    "name": "inn_lookup",
+    "description": "Check a Russian legal entity by INN (EGRUL/ЕГРЮЛ, the official state register of companies): name, status, address, OKVED, management. $0.01 USDC per call.",
+    "inputSchema": {
+      "properties": {
+        "inn": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "inn"
+      ],
+      "type": "object"
+    }
+  },
+  {
+    "name": "ru_search",
+    "description": "Cyrillic/Runet web search built for AI agents — finds Russian-language sources that Western search APIs miss. $0.02 USDC per call.",
+    "inputSchema": {
+      "properties": {
+        "query": {
+          "type": "string"
+        },
+        "limit": {
+          "default": 5,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "query"
+      ],
+      "type": "object"
+    }
+  },
+  {
+    "name": "ru_page",
+    "description": "Fetch a Russian-language web page (URL) and return LLM-ready Markdown. $0.01 USDC per call.",
+    "inputSchema": {
+      "properties": {
+        "url": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "url"
+      ],
+      "type": "object"
+    }
+  },
+  {
+    "name": "ru_research",
+    "description": "Research bundle: one Runet search plus its top pages as Markdown, in a single payment. $0.02 USDC per call.",
+    "inputSchema": {
+      "properties": {
+        "query": {
+          "type": "string"
+        },
+        "limit": {
+          "default": 5,
+          "type": "integer"
+        },
+        "max_pages": {
+          "default": 3,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "query"
+      ],
+      "type": "object"
+    }
+  },
+  {
+    "name": "ru_research_deep",
+    "description": "Deep research bundle: 3 Runet searches plus up to 10 pages of Markdown, in a single payment. $0.05 USDC per call.",
+    "inputSchema": {
+      "properties": {
+        "query": {
+          "type": "string"
+        },
+        "limit": {
+          "default": 8,
+          "type": "integer"
+        },
+        "max_pages": {
+          "default": 8,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "query"
+      ],
+      "type": "object"
+    }
+  },
+  {
+    "name": "company_report",
+    "description": "Counterparty check bundle (KYB dossier): EGRUL company record + self-employed (NPD) status + deep Runet dossier — three services in one payment. $0.05 USDC per call.",
+    "inputSchema": {
+      "properties": {
+        "inn": {
+          "type": "string"
+        },
+        "limit": {
+          "default": 6,
+          "type": "integer"
+        },
+        "max_pages": {
+          "default": 5,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "inn"
+      ],
+      "type": "object"
+    }
+  },
+  {
+    "name": "cbr_rates",
+    "description": "Official Bank of Russia (CBR) daily FX rates: USD, EUR, CNY, GBP, KZT and other ISO codes. $0.008 USDC per call.",
+    "inputSchema": {
+      "properties": {
+        "currencies": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        }
+      },
+      "type": "object"
+    }
+  },
+  {
+    "name": "moex_quote",
+    "description": "Moscow Exchange (MOEX ISS) quotes: last price for shares (SBER, GAZP, ...), FX pairs (USD/EUR/CNY) and indices (IMOEX). $0.008 USDC per call.",
+    "inputSchema": {
+      "properties": {
+        "symbol": {
+          "default": "SBER",
+          "type": "string"
+        },
+        "market": {
+          "default": "shares",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    }
+  },
+  {
+    "name": "pochta_tariff",
+    "description": "Russian Post: shipping cost and delivery time between two postal indexes (official API). $0.01 USDC per call.",
+    "inputSchema": {
+      "properties": {
+        "from_index": {
+          "type": "string"
+        },
+        "to_index": {
+          "type": "string"
+        },
+        "weight": {
+          "default": 1000,
+          "type": "integer"
+        },
+        "mail_type": {
+          "default": "POSTAL_PARCEL",
+          "type": "string"
+        },
+        "mail_category": {
+          "default": "ORDINARY",
+          "type": "string"
+        },
+        "declared_value": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "dimension_type": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        }
+      },
+      "required": [
+        "from_index",
+        "to_index"
+      ],
+      "type": "object"
+    }
+  },
+  {
+    "name": "pochta_track",
+    "description": "Russian Post: track a shipment by barcode / track number. $0.01 USDC per call.",
+    "inputSchema": {
+      "properties": {
+        "barcode": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "barcode"
+      ],
+      "type": "object"
+    }
+  },
+  {
+    "name": "pochta_delivery_time",
+    "description": "Russian Post: delivery time in days between two postal indexes. $0.01 USDC per call.",
+    "inputSchema": {
+      "properties": {
+        "from_index": {
+          "type": "string"
+        },
+        "to_index": {
+          "type": "string"
+        },
+        "mail_type": {
+          "default": "POSTAL_PARCEL",
+          "type": "string"
+        },
+        "mail_category": {
+          "default": "ORDINARY",
+          "type": "string"
+        }
+      },
+      "required": [
+        "from_index",
+        "to_index"
+      ],
+      "type": "object"
+    }
+  },
+  {
+    "name": "pochta_offices",
+    "description": "Russian Post: post offices by postal code, or the nearest offices to given coordinates. $0.01 USDC per call.",
+    "inputSchema": {
+      "properties": {
+        "postal_code": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "latitude": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "longitude": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "top": {
+          "default": 10,
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    }
+  },
+  {
+    "name": "pochta_zip",
+    "description": "Russian Post: office address and locality by postal code. $0.01 USDC per call.",
+    "inputSchema": {
+      "properties": {
+        "postal_code": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "postal_code"
+      ],
+      "type": "object"
+    }
+  },
+  {
+    "name": "pochta_address",
+    "description": "Russian Post: normalize a Russian address (postal code, region, street, building). $0.01 USDC per call.",
+    "inputSchema": {
+      "properties": {
+        "address": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "address"
+      ],
+      "type": "object"
+    }
+  },
+  {
+    "name": "pochta_delivery",
+    "description": "Russian Post delivery bundle: address, postal code, office, shipping cost and delivery time in one payment — five services in one. $0.04 USDC per call.",
+    "inputSchema": {
+      "properties": {
+        "from_index": {
+          "type": "string"
+        },
+        "to_address": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "to_index": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "weight": {
+          "default": 1000,
+          "type": "integer"
+        },
+        "mail_type": {
+          "default": "POSTAL_PARCEL",
+          "type": "string"
+        },
+        "mail_category": {
+          "default": "ORDINARY",
+          "type": "string"
+        },
+        "declared_value": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        }
+      },
+      "required": [
+        "from_index"
+      ],
+      "type": "object"
+    }
+  }
+]
