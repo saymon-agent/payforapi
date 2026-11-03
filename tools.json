@@ -15,25 +15,6 @@
     }
   },
   {
-    "name": "ru_search",
-    "description": "Cyrillic/Runet web search built for AI agents — finds Russian-language sources that Western search APIs miss. $0.02 USDC per call.",
-    "inputSchema": {
-      "properties": {
-        "query": {
-          "type": "string"
-        },
-        "limit": {
-          "default": 5,
-          "type": "integer"
-        }
-      },
-      "required": [
-        "query"
-      ],
-      "type": "object"
-    }
-  },
-  {
     "name": "ru_page",
     "description": "Fetch a Russian-language web page (URL) and return LLM-ready Markdown. $0.01 USDC per call.",
     "inputSchema": {
@@ -44,75 +25,6 @@
       },
       "required": [
         "url"
-      ],
-      "type": "object"
-    }
-  },
-  {
-    "name": "ru_research",
-    "description": "Research bundle: one Runet search plus its top pages as Markdown, in a single payment. $0.02 USDC per call.",
-    "inputSchema": {
-      "properties": {
-        "query": {
-          "type": "string"
-        },
-        "limit": {
-          "default": 5,
-          "type": "integer"
-        },
-        "max_pages": {
-          "default": 3,
-          "type": "integer"
-        }
-      },
-      "required": [
-        "query"
-      ],
-      "type": "object"
-    }
-  },
-  {
-    "name": "ru_research_deep",
-    "description": "Deep research bundle: 3 Runet searches plus up to 10 pages of Markdown, in a single payment. $0.05 USDC per call.",
-    "inputSchema": {
-      "properties": {
-        "query": {
-          "type": "string"
-        },
-        "limit": {
-          "default": 8,
-          "type": "integer"
-        },
-        "max_pages": {
-          "default": 8,
-          "type": "integer"
-        }
-      },
-      "required": [
-        "query"
-      ],
-      "type": "object"
-    }
-  },
-  {
-    "name": "company_report",
-    "description": "Counterparty check bundle (KYB dossier): EGRUL company record + self-employed (NPD) status + deep Runet dossier — three services in one payment. $0.05 USDC per call.",
-    "inputSchema": {
-      "properties": {
-        "inn": {
-          "type": "string"
-        },
-        "limit": {
-          "default": 6,
-          "type": "integer"
-        },
-        "max_pages": {
-          "default": 5,
-          "type": "integer"
-        }
-      },
-      "required": [
-        "inn"
       ],
       "type": "object"
     }
@@ -385,6 +297,34 @@
       "required": [
         "from_index"
       ],
+      "type": "object"
+    }
+  },
+  {
+    "name": "fns_npd_check",
+    "description": "Check whether a Russian sole trader / self-employed person (NPD) is registered with the Federal Tax Service (FNS) by INN — confirm the contractor exists and pays NPD tax. $0.01 USDC per call.",
+    "inputSchema": {
+      "properties": {
+        "inn": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "inn"
+      ],
+      "type": "object"
+    }
+  },
+  {
+    "name": "ticker",
+    "description": "Crypto spot tickers from Bybit: last price, 24h change and volume for a trading pair (e.g. BTCUSDT). $0.005 USDC per call.",
+    "inputSchema": {
+      "properties": {
+        "symbol": {
+          "default": "BTCUSDT",
+          "type": "string"
+        }
+      },
       "type": "object"
     }
   }
